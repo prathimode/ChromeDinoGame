@@ -5,6 +5,7 @@ float hurdleHeight = 40;
 float w = 800;
 float h = 500;
 float angle = 0.0;
+float offset = 0;
 boolean pressed = false;
 
 void setup() {
@@ -26,24 +27,29 @@ void draw() {
   strokeWeight(strokeWeight);
   
   line(0, h-groundoff, 800, h - groundoff);
+  
   if(!pressed && keyPressed) {
     pressed = true;
   }
+  float go= 0;
    if(pressed) {
     if(angle > 3.14) { pressed = false; angle =0 ;}
-    float gg = groundoff + sin(angle)* 80;
-    float go = h - gg;
-    drawHurdle(hurdleX, go, hurdleHeight);
-    drawHurdle(hurdleX + 150, go, hurdleHeight);
-    drawHurdle(hurdleX + 300, go, hurdleHeight);
-    drawHurdle(hurdleX + 450, go, hurdleHeight);
-    angle += 0.06;
+    go = h - (groundoff + sin(angle)* 130);
+    angle += 0.09;
    } else {
-     float gg = groundoff;
-     float go = h - gg;
-    drawHurdle(hurdleX, go, hurdleHeight);
-    drawHurdle(hurdleX + 150, go, hurdleHeight);
-    drawHurdle(hurdleX + 300, go, hurdleHeight);
-    drawHurdle(hurdleX + 450, go, hurdleHeight);
+     go = h - groundoff;
    }
+    drawHurdle(hurdleX, go, hurdleHeight);
+    
+    if(w < offset) {
+      offset = 0;
+    }
+    drawHurdle(w - offset , h - groundoff, hurdleHeight - 20);
+    drawHurdle(w - offset + 200, h - groundoff, hurdleHeight - 20);
+    drawHurdle(w - offset + 300, h - groundoff, hurdleHeight - 20);
+    drawHurdle(w - offset + 400, h - groundoff, hurdleHeight - 20);
+    offset += 10;
+    
+    
+    
 }
